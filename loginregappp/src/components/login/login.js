@@ -34,7 +34,7 @@ const Login = ( { setLoginUser} ) => {
     return (
         <div className="login">
             <h1>Login</h1>
-            {console.log(user)}
+            {/* {console.log(user)}*/}
             <input type="text" name="email" value={user.email} onChange={handleChange} placeholder="Enter Your Email"></input>
             <input type="password" name="password" value={user.password} onChange={handleChange} placeholder="Enter Your Password"></input>
             <div className="button" onClick={login}>Login</div>
