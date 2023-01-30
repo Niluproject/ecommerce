@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 const Contact = () => {
   const [contactData, setContactData] = useState({});
   const [errorMsg, setErrorMsg] = useState();
   const [successMsg, setSuccessMsg] = useState(false);
+
+//   showAlert = () => {
+//     Swal.fire({
+//         title: "Success",
+//         text: "Alert successful",
+//         icon: "success",
+//         confirmButtonText: "OK",
+//       });
+// }
 
   const isValidEmail = (email) => {
     return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email);
@@ -81,10 +91,18 @@ const Contact = () => {
   const contactus = () => {
     const  { name, email, company, mobile, message } = contactData
     if(name && email && company && mobile && message){
-        alert("Posted");
+        //alert("Posted");
         axios.post("http://localhost:9002/contact", contactData)
         .then( res => {
-            alert(res.data.message)
+          Swal.fire({
+            imageWidth: 150,
+            imageHeight: 150,
+            imageAlt: "Success",
+            confirmButtonColor: "#007aff",
+            width: 400,
+            title: "SUCCESS!",
+            text: res.data.message,
+          });
         })
     }else{
         alert("Invalid input")

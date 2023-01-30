@@ -41,3 +41,19 @@
 }
 
 
+.product-list {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.product-list ul li {
+  display: inline-block;
+  width: 225px;
+  border: 1px solid #062168;
+  padding: 5px;
+}
+
+.product-list ul{
+  margin: 0;
+}
+

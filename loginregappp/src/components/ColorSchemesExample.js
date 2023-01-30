@@ -21,6 +21,7 @@ const ColorSchemesExample = () => {
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/about">About us</Link></li>
                         <li><Link to="/contact">Contact Us</Link></li>
+                        <li><Link to="/contactlist">Contact List</Link></li>
                         <li><Link onClick={logout} to="/register">Logout ({ JSON.parse(auth)})</Link></li>
                     </ul>
                     :

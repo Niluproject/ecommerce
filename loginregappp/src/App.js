@@ -1,6 +1,7 @@
 import './App.css'
 import './styles.scss'
 import Contact from './components/register/Contact';
+import Contactlist from './components/register/Contactlist';
 import Homepage from './components/homepage/homepage';
 import Login from './components/login/login';
 import Register from './components/register/register';
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" element={<Autocarosal />} />
           <Route exact path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/contactlist" element={<Contactlist />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

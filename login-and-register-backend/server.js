@@ -96,6 +96,15 @@ app.post("/contact", (req, res)=> {
     
 }) 
 
+app.get("/contactlist", async (req, resp) => {
+    const contact = await Contact.find();
+    if (contact.length > 0) {
+        resp.send(contact)
+    } else {
+        resp.send({ result: "No Contact found" })
+    }
+});
+
 app.listen(9002,() => {
     console.log("BE started at port 9002");
 });
