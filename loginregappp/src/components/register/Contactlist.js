@@ -63,7 +63,7 @@ const Contactlist = () => {
 
     return (
         <div className="product-list">
-            <h3>Contact List</h3>
+            <h3 className='cl'>Contact List</h3>
             {/* <input type="" className='search-product-box' placeholder='Search Product'
             onChange={searchHandle}
              /> */}
