@@ -22,6 +22,16 @@ const userSchema = new mongoose.Schema({
 
 const User = new mongoose.model("User", userSchema)
 
+const contactSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    company: String,
+    mobile: Number,
+    message: String
+})
+
+const Contact = new mongoose.model("Contact", contactSchema)
+
 //Routes
 app.post("/login", (req, res)=> {
     const { email, password} = req.body
@@ -54,6 +64,31 @@ app.post("/register", (req, res)=> {
                     res.send(err)
                 } else {
                     res.send( { message: "Successfully Registered, Please login now." })
+                }
+            })
+        }
+    })
+    
+}) 
+
+app.post("/contact", (req, res)=> {
+    const { name, email, company, mobile, message } = req.body
+    Contact.findOne({email: email}, (err, contact) => {
+        if(contact){
+            res.send({message: "User already registerd"})
+        } else {
+            const contact = new Contact({
+                name,
+                email,
+                company,
+                mobile,
+                message
+            })
+            contact.save(err => {
+                if(err) {
+                    res.send(err)
+                } else {
+                    res.send( { message: "Successfully Conatct, Save.." })
                 }
             })
         }

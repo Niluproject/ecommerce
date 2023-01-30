@@ -28,5 +28,16 @@
   height: 380px;
 }
 
+.logo {
+  width: 130px;
+  height: 45px;
+  float: left;
+  margin-top: 3px;
+  margin-left: 10px;
+}
+
+.nav-right{
+  text-align: right;
+}
 
 

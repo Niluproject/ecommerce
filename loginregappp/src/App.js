@@ -25,10 +25,11 @@ function App() {
           <Route exact path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-        <Footer />
+       
       </BrowserRouter>
+      <Footer />
 
     </div>
   );

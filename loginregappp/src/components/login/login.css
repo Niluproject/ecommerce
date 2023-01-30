@@ -1,6 +1,8 @@
 .login {
     width: 400px;
-    background: #fff;
+    background: #141a65;
+    color: aliceblue;
+    margin-left: 38%;
     border: 1px solid #dddfe2;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     border-radius: 8px;

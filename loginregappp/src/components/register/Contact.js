@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 const Contact = () => {
   const [contactData, setContactData] = useState({});
   const [errorMsg, setErrorMsg] = useState();
@@ -76,6 +77,21 @@ const Contact = () => {
     return isValided;
   };
 
+  /* backend start*/
+  const contactus = () => {
+    const  { name, email, company, mobile, message } = contactData
+    if(name && email && company && mobile && message){
+        alert("Posted");
+        axios.post("http://localhost:9002/contact", contactData)
+        .then( res => {
+            alert(res.data.message)
+        })
+    }else{
+        alert("Invalid input")
+    }
+}
+/* backend End */
+
   return (
     <div id="contact">
       <div className="form">
@@ -151,12 +167,13 @@ const Contact = () => {
                   type="submit"
                   className="btn btn-primary"
                   value="Submit Now"
+                  onClick={contactus}
                 />
               </p>
             </>
           ) : (
             <div className="show" id="sendmessage">
-              Thank for your message. We will contact you soon.
+              Thank for your message. CotactUs Page Saved!.
             </div>
           )}
         </form>

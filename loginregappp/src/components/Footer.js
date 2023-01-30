@@ -1,5 +1,5 @@
 import React from 'react';
-// import { SocialIcon } from 'react-social-icons';
+import { SocialIcon } from 'react-social-icons';
 
 export default function Footer() {
   return (
@@ -33,6 +33,26 @@ export default function Footer() {
         <i className="fab fa-github" />
       </a>
     </div> */}
+    <div>
+      <a href className="me-4 text-reset">
+      <SocialIcon url="https://linkedin.com/in/jaketrent" />
+      </a>
+      <a href className="me-4 text-reset">
+      <SocialIcon url="https://www.example.com" label="Our portfolio" />
+      </a>
+      <a href className="me-4 text-reset">
+      <SocialIcon url="https://jaketrent.com" network="tumblr" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-instagram" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-linkedin" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-github" />
+      </a>
+    </div>
     {/* Right */}
   </section>
   {/* Section: Social media */}
