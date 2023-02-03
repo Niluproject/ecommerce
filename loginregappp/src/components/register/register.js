@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./register.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -32,7 +33,12 @@ const Register = () => {
                 navigate("/login")
             })
         }else{
-            alert("Invalid input")
+            Swal.fire({
+                title: "Wrong",
+                text: "Invalid Input",
+                icon: "!",
+                confirmButtonText: "OK",
+              });
         }
     }
     return (

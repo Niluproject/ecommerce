@@ -7,15 +7,6 @@ const Contact = () => {
   const [errorMsg, setErrorMsg] = useState();
   const [successMsg, setSuccessMsg] = useState(false);
 
-//   showAlert = () => {
-//     Swal.fire({
-//         title: "Success",
-//         text: "Alert successful",
-//         icon: "success",
-//         confirmButtonText: "OK",
-//       });
-// }
-
   const isValidEmail = (email) => {
     return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email);
   };
@@ -105,7 +96,12 @@ const Contact = () => {
           });
         })
     }else{
-        alert("Invalid input")
+      Swal.fire({
+        title: "Wrong",
+        text: "Invalid Input",
+        icon: "!",
+        confirmButtonText: "OK",
+      });
     }
 }
 /* backend End */
