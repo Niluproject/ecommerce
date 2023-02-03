@@ -12,55 +12,6 @@ const Contactlist = () => {
         setContacts(result);
     }
 
-    // const deleteProduct = async (id) => {
-    //     console.warn(id)
-    //     let result = await fetch(`http://localhost:5000/product/${id}`, {
-    //         method: "Delete",
-    //         headers:{
-    //             authorization:JSON.parse(localStorage.getItem('token'))
-    //         }
-    //     });
-    //     result = await result.json();
-    //     if (result) {
-    //         getProducts();
-    //     }
-    // }
-
-    // const searchHandle = async (event)=>{
-    //     let key = event.target.value;
-    //     if(key){
-    //         let result = await fetch(`http://localhost:5000/search/${key}`,{
-    //             headers:{
-    //                 authorization:JSON.parse(localStorage.getItem('token'))
-    //             }
-    //         });
-    //         result = await result.json()
-    //         if(result){
-    //             setProducts(result)
-    //         }
-    //     }else{
-    //         getProducts();
-    //     }
-        
-    // }
-
-    // const addtocarthandler =  (product_id) => {
-    //     const user_id = auth._id;
-    //     console.log(user_id);
-    //     fetch('http://localhost:5000/cart',{
-    //         method: "post",
-    //         headers:{
-    //             "Content-type": "application/json",
-    //             authorization:JSON.parse(localStorage.getItem('token'))
-    //         },
-    //         body: JSON.stringify({ product_id, user_id }),
-
-    //     }).then((response) => {
-    //         console.log(response);
-    //     });
-
-    // }
-
     return (
         <div className="product-list">
             <h3 className='cl'>Contact List</h3>
@@ -79,7 +30,6 @@ const Contactlist = () => {
             </ul>
             {
                 contacts.length>0 ? contacts.map((item, index) =>
-                //item.price ==='24000'?
                         <ul key={item._id}>
                         <li>{index + 1}</li>
                         <li>{item.name}</li>

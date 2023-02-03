@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import "./login.css"
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,7 +15,8 @@ const Login = ( { setLoginUser } ) => {
     })
 
     useEffect(() => {
-        const auth = localStorage.getItem('user');
+        const item = localStorage.getItem('user');
+        const auth = item !=='' ? JSON.parse(item) : '';
         if (auth) {
             navigate("/")
         }
@@ -29,57 +31,54 @@ const Login = ( { setLoginUser } ) => {
         })
     }
 
-    // const login = () => {
-    //     axios.post("http://localhost:9002/login", user)
-    //     .then( res => {
-    //         alert(res.data.message)
-    //         setLoginUser(res.data.user)
-    //         console.log(res.data.user);
-    //         navigate("/")
-    //     })
-    // }
 
     const login = () => {
-        const  { email, password, reEnterPassword } = user
+        const  { email, password } = user
         if(email && password ){
-            // alert("Posted");
             axios.post("http://localhost:9002/login", user)
             .then( res => {
                 console.log(res);
-                localStorage.setItem('user', JSON.stringify(res.user));
-                console.log(res.data.message);
-                alert(res.data.message)
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+                // console.log(res.data.message);
+                Swal.fire({
+                    imageWidth: 150,
+                    imageHeight: 150,
+                    imageAlt: "Success",
+                    confirmButtonColor: "#007aff",
+                    width: 400,
+                    title: "SUCCESS!",
+                    text: res.data.message,
+                  });
                 navigate("/")
+            }).catch(error=> {
+                // if(error.response.data.error){
+                    Swal.fire({
+                        imageWidth: 150,
+                        imageHeight: 150,
+                        imageAlt: "error",
+                        confirmButtonColor: "#007aff",
+                        width: 400,
+                        title: "UNAUTHORIZE!",
+                        text: error.response.data.error,
+                      });
+                // }
             })
         }else{
-            alert("Invalid input")
+          
+                Swal.fire({
+                    title: "Wrong",
+                    text: "Invalid Input",
+                    icon: "!",
+                    confirmButtonText: "OK",
+                  });
+            
+        
         }
     }
-
-    // const handleLogin = async () => {
-    //     let result = await fetch("http://localhost:9002/login", {
-    //         method: 'post',
-    //       //  body: JSON.stringify({ email, password }),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     });
-    //     result = await result.json();
-    //     console.warn(result)
-    //     if (result) {
-    //         console.log(result)
-    //         localStorage.setItem('user', JSON.stringify(result.user));
-    //         // localStorage.setItem('token', JSON.stringify(result.auth));
-    //         navigate("/")
-    //     } else {
-    //         alert("Please enter correct details")
-    //     }
-    // }
 
     return (
         <div className="login">
             <h1>Login</h1>
-            {/* {console.log(user)}*/}
             <input type="text" name="email" value={user.email} onChange={handleChange} placeholder="Enter Your Email"></input>
             <input type="password" name="password" value={user.password} onChange={handleChange} placeholder="Enter Your Password"></input>
             <div className="button" onClick={login}>Login</div>
