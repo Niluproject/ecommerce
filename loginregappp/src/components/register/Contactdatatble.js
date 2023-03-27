@@ -73,7 +73,7 @@ const Contactdatatble = () => {
     return (
         <div>
             <DataTable
-                title="Contact Data"
+                title="Contact Dataa"
                 columns={columns}
                 data={filteredcontacts}
                 pagination
