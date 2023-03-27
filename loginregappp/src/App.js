@@ -2,6 +2,8 @@ import './App.css'
 import './styles.scss'
 import Contact from './components/register/Contact';
 import Contactlist from './components/register/Contactlist';
+import Contactdatatble from './components/register/Contactdatatble';
+import Formikform from './components/register/Formikform';
 import Homepage from './components/homepage/homepage';
 import Login from './components/login/login';
 import Register from './components/register/register';
@@ -18,18 +20,20 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <ColorSchemesExample />
+        <ColorSchemesExample />
         <Routes>
           {/* <Route exact path="/" element={<ColorSchemesExample />} /> */}
           {/* <Route exact path="/" element={<Homepage />} /> */}
           <Route exact path="/" element={<Autocarosal />} />
           <Route exact path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/contactlist" element={<Contactlist />} />
+          {/* <Route path="/contactlist" element={<Contactlist />} /> */}
+          <Route path="/contactlist" element={<Contactdatatble />} />
+          <Route path="/formdata" element={<Formikform />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-       
+
       </BrowserRouter>
       <Footer />
 

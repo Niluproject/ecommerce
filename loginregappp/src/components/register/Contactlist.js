@@ -9,6 +9,7 @@ const Contactlist = () => {
     const getContacts = async () => {
         let result = await fetch('http://localhost:9002/contactlist');
         result = await result.json();
+        console.log(result);
         setContacts(result);
     }
 
