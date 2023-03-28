@@ -34,30 +34,42 @@ const Contactdatatble = () => {
     const columns = [
         {
             name: "Name",
-            selector: (row) => row.name,
-            sortable: true
+            selector: "name",
+            sortable: true,
+            style: {
+                borderRight: "1px solid #ddd"
+            }
         },
         {
             name: "Email",
-            selector: (row) => row.email,
-            sortable: true
+            selector: "email",
+            sortable: true,
+            style: {
+                borderRight: "1px solid #ddd"
+            }
         },
         {
             name: "Company",
-            selector: (row) => row.company,
-            sortable: true
+            selector: "company",
+            sortable: true,
+            style: {
+                borderRight: "1px solid #ddd"
+            }
         },
         {
             name: "Mobile",
-            selector: (row) => row.mobile,
-            sortable: true
+            selector: "mobile",
+            sortable: true,
+            style: {
+                borderRight: "1px solid #ddd"
+            }
         },
         {
             name: "Message",
-            selector: (row) => row.message,
+            selector: "message",
             sortable: true
         }
-    ]
+    ];
 
     useEffect(() => {
         getContacts();
