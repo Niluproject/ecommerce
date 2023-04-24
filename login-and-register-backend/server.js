@@ -136,9 +136,8 @@ app.post('/formdata', (req, res) => {
         });
 });
 
-
-
 // Email code Start using Nodemailer //
+
 // var transporter = nodemailer.createTransport({
 //     service: 'gmail',
 //     auth: {
@@ -161,6 +160,42 @@ app.post('/formdata', (req, res) => {
 //         console.log('Email sent: ' + info.response);
 //     }
 // });
+
+// Email code end using Nodemailer //
+
+// Email code Start using Nodemailer //
+
+// app.post('/send-email', (req, res) => {
+//     const transporter = nodemailer.createTransport({
+//         service: 'gmail',
+//         auth: {
+//             user: process.env.EMAIL_ID,
+//             pass: process.env.PASSWORD
+//         }
+//     });
+
+//     const mailOptions = {
+//         from: 'nillvaghela11@gmail.com',
+//         to: 'vaghelanill22@gmail.com',
+//         subject: 'Sending Email using Node.js',
+//         text: 'That was easy to send mail from Nill vaghela to send email first time via nodemailer!'
+//     };
+
+//     transporter.sendMail(mailOptions, function (error, info) {
+//         if (error) {
+//             console.log(error);
+//             res.status(500).send('Error sending email');
+//         } else {
+//             console.log('Email sent: ' + info.response);
+//             res.send('Email sent successfully');
+//         }
+//     });
+// });
+
+// Email code end using Nodemailer //
+
+// Email code Start using Nodemailer //
+
 app.post('/send-email', (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -170,11 +205,12 @@ app.post('/send-email', (req, res) => {
         }
     });
 
+    const { from, to, subject, text } = req.body;
     const mailOptions = {
-        from: 'nillvaghela11@gmail.com',
-        to: 'vaghelanill22@gmail.com',
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy to send mail from Nill vaghela to send email first time via nodemailer!'
+        from,
+        to,
+        subject,
+        text
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -187,6 +223,7 @@ app.post('/send-email', (req, res) => {
         }
     });
 });
+
 // Email code end using Nodemailer //
 
 app.listen(9002, () => {
