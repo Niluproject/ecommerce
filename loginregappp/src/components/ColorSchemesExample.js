@@ -26,6 +26,7 @@ const ColorSchemesExample = () => {
                         <li><Link to="/contact">Contact Us</Link></li>
                         <li><Link to="/contactlist">Contact List</Link></li>
                         <li><Link to="/formdata">Formik Form</Link></li>
+                        <li><Link to="/sendmail">Email_Sent</Link></li>
                         <li><Link onClick={logout} to="/login">Logout ({auth.name})</Link></li>
                     </ul>
                     :

@@ -4,6 +4,7 @@ import Contact from './components/register/Contact';
 import Contactlist from './components/register/Contactlist';
 import Contactdatatble from './components/register/Contactdatatble';
 import Formikform from './components/register/Formikform';
+import SentEmail from './components/register/SentEmail';
 import Homepage from './components/homepage/homepage';
 import Login from './components/login/login';
 import Register from './components/register/register';
@@ -30,6 +31,7 @@ function App() {
           {/* <Route path="/contactlist" element={<Contactlist />} /> */}
           <Route path="/contactlist" element={<Contactdatatble />} />
           <Route path="/formdata" element={<Formikform />} />
+          <Route path="/sendmail" element={<SentEmail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

@@ -9,14 +9,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [ user, setUser] = useState({
+    const [user, setUser] = useState({
         email: "",
         password: "",
     })
 
     useEffect(() => {
         const item = localStorage.getItem('user');
-        const auth = item !=='' ? JSON.parse(item) : '';
+        const auth = item !== '' ? JSON.parse(item) : '';
         if (auth) {
             navigate("/")
         }
@@ -33,25 +33,25 @@ const Login = () => {
 
 
     const login = () => {
-        const  { email, password } = user
-        if(email && password ){
+        const { email, password } = user
+        if (email && password) {
             axios.post("http://localhost:9002/login", user)
-            .then( res => {
-                console.log(res);
-                localStorage.setItem('user', JSON.stringify(res.data.user));
-                // console.log(res.data.message);
-                Swal.fire({
-                    imageWidth: 150,
-                    imageHeight: 150,
-                    imageAlt: "Success",
-                    confirmButtonColor: "#007aff",
-                    width: 400,
-                    title: "SUCCESS!",
-                    text: res.data.message,
-                  });
-                navigate("/")
-            }).catch(error=> {
-                // if(error.response.data.error){
+                .then(res => {
+                    console.log(res);
+                    localStorage.setItem('user', JSON.stringify(res.data.user));
+                    // console.log(res.data.message);
+                    Swal.fire({
+                        imageWidth: 150,
+                        imageHeight: 150,
+                        imageAlt: "Success",
+                        confirmButtonColor: "#007aff",
+                        width: 400,
+                        title: "SUCCESS!",
+                        text: res.data.message,
+                    });
+                    navigate("/")
+                }).catch(error => {
+                    // if(error.response.data.error){
                     Swal.fire({
                         imageWidth: 150,
                         imageHeight: 150,
@@ -60,19 +60,19 @@ const Login = () => {
                         width: 400,
                         title: "UNAUTHORIZE!",
                         text: error.response.data.error,
-                      });
-                // }
-            })
-        }else{
-          
-                Swal.fire({
-                    title: "Wrong",
-                    text: "Invalid Input",
-                    icon: "!",
-                    confirmButtonText: "OK",
-                  });
-            
-        
+                    });
+                    // }
+                })
+        } else {
+
+            Swal.fire({
+                title: "Wrong",
+                text: "Invalid Input",
+                icon: "!",
+                confirmButtonText: "OK",
+            });
+
+
         }
     }
 

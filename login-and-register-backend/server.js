@@ -7,12 +7,13 @@ import nodemailer from 'nodemailer'
 
 const app = express()
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 mongoose.connect("mongodb://localhost:27017/myLoginRegisterDB", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    family: 4
 }, () => {
     console.log("DB connected")
 })
@@ -138,29 +139,54 @@ app.post('/formdata', (req, res) => {
 
 
 // Email code Start using Nodemailer //
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_ID,
-        pass: process.env.PASSWORD
-    }
+// var transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: process.env.EMAIL_ID,
+//         pass: process.env.PASSWORD
+//     }
+// });
+
+// var mailOptions = {
+//     from: 'nillvaghela11@gmail.com',
+//     to: 'vaghelanill22@gmail.com',
+//     subject: 'Sending Email using Node.js',
+//     text: 'That was easy to send mail from Nill vaghela to send email first time via nodemailer!'
+// };
+
+// transporter.sendMail(mailOptions, function (error, info) {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         console.log('Email sent: ' + info.response);
+//     }
+// });
+app.post('/send-email', (req, res) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_ID,
+            pass: process.env.PASSWORD
+        }
+    });
+
+    const mailOptions = {
+        from: 'nillvaghela11@gmail.com',
+        to: 'vaghelanill22@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy to send mail from Nill vaghela to send email first time via nodemailer!'
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            res.status(500).send('Error sending email');
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.send('Email sent successfully');
+        }
+    });
 });
-
-var mailOptions = {
-    from: 'nillvaghela11@gmail.com',
-    to: 'vaghelanill22@gmail.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
-};
-
-transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Email sent: ' + info.response);
-    }
-});
-
 // Email code end using Nodemailer //
 
 app.listen(9002, () => {
