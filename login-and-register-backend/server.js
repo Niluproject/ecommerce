@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import dotenv from 'dotenv'
 dotenv.config()
 import nodemailer from 'nodemailer'
+import multer from 'multer'
 
 const app = express()
 app.use(express.json())
@@ -17,6 +18,22 @@ mongoose.connect("mongodb://localhost:27017/myLoginRegisterDB", {
 }, () => {
     console.log("DB connected")
 })
+
+
+// Upload image functionality start//
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Upload image functionality end//
 
 const userSchema = new mongoose.Schema({
     name: String,
@@ -39,10 +56,11 @@ const Contact = new mongoose.model("Contact", contactSchema)
 const formSchema = new mongoose.Schema({
     name: String,
     email: String,
-    password: String
+    password: String,
+    image: String // add a new field for the image filename
 });
 
-const Form = new mongoose.model("form", formSchema)
+const Form = mongoose.model("Form", formSchema);
 
 //Routes
 app.post("/login", (req, res) => {
@@ -118,13 +136,14 @@ app.get("/contactlist", async (req, resp) => {
     }
 });
 
-app.post('/formdata', (req, res) => {
+app.post('/formdata', upload.single('image'), (req, res) => {
     const { name, email, password } = req.body;
 
     const form = new Form({
         name,
         email,
-        password
+        password,
+        image: req.file ? req.file.filename : null // check if req.file exists before accessing its properties
     });
 
     form.save()
@@ -135,6 +154,7 @@ app.post('/formdata', (req, res) => {
             res.status(500).json({ error });
         });
 });
+
 
 // Email code Start using Nodemailer //
 

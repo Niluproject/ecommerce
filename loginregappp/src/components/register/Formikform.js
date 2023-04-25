@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useFormik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -8,7 +8,8 @@ function FormikForm() {
     const initialValues = {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        image: null
     };
 
     const validationSchema = Yup.object({
@@ -16,24 +17,42 @@ function FormikForm() {
             .min(3, 'Name must be at least 3 characters')
             .required('Name is required'),
         email: Yup.string()
-            .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email address format")
-            .required("Email is required"),
+            .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email address format')
+            .required('Email is required'),
         password: Yup.string()
             .required('Please Enter your password')
             .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+                'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'
             ),
+        image: Yup.mixed().test('fileFormat', 'Unsupported file format', (value) => {
+            if (!value) {
+                return true; // field is optional, so empty values are allowed
+            }
+            const supportedFormats = ['image/jpeg', 'image/png', 'image/gif'];
+            return value && supportedFormats.includes(value.type);
+        })
     });
 
     const onSubmit = (values, { resetForm }) => {
+        const formData = new FormData();
+        formData.append('name', values.name);
+        formData.append('email', values.email);
+        formData.append('password', values.password);
+        formData.append('image', values.image);
+
         axios
-            .post('http://localhost:9002/formdata', values)
-            .then(response => {
+            .post('http://localhost:9002/formdata', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((response) => {
                 console.log(response.data);
                 resetForm();
+                imageInputRef.current.value = null;
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
             });
     };
@@ -43,10 +62,10 @@ function FormikForm() {
         validationSchema,
         onSubmit
     });
-
+    const imageInputRef = useRef(null);
     return (
         <div>
-            <Form onSubmit={formik.handleSubmit}>
+            <Form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                 <Form.Group controlId="formName">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -92,10 +111,27 @@ function FormikForm() {
                     </Form.Control.Feedback>
                 </Form.Group>
 
+                <Form.Group controlId="formImage">
+                    <Form.Label>Image</Form.Label>
+                    <Form.Control
+                        type="file"
+                        name="image"
+                        ref={imageInputRef} // Assign the ref to the input element
+                        onChange={(event) => {
+                            formik.setFieldValue("image", event.currentTarget.files[0]);
+                        }}
+                        isInvalid={formik.touched.image && !!formik.errors.image}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {formik.errors.image}
+                    </Form.Control.Feedback>
+                </Form.Group>
+
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
             </Form>
+
 
         </div>
     );
