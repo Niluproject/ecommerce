@@ -14,10 +14,13 @@ const ColorSchemesExample = () => {
     }
     return (
         <div>
-            <img
-                alt='logo'
-                src={test}
-                className='logo' />
+            <a href='/'>
+                <img
+                    alt='logo'
+                    src={test}
+                    className='logo'
+                />
+            </a>
             {
                 auth._id ?
                     <ul className="nav-ul">

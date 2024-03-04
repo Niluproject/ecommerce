@@ -12,6 +12,7 @@ import ColorSchemesExample from './components/ColorSchemesExample';
 import Autocarosal from './components/login/Autocarosal';
 import About from './components/About';
 import Footer from './components/Footer';
+import Pagenotfound from './components/Pagenotfound';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from 'react';
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/sendmail" element={<SentEmail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Pagenotfound />} />
         </Routes>
 
       </BrowserRouter>
